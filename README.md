@@ -5,6 +5,8 @@ Intègre des APIs publiques (EUR→USD, CoinGecko, RestCountries) et expose des 
 
 > Short: démonstration BFF → Front (REST + realtime), patterns BFF, React Query, SignalR, CI.
 
+![alt text](image.png)
+
 ---
 
 ## Tech & versions
@@ -97,3 +99,4 @@ git commit -m "..."
 git push origin main
 # après un push, GitHub Actions (/.github/workflows/ci.yml) s'exécutera si présent
 ```
+
