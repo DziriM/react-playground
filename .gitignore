@@ -1,0 +1,104 @@
+# -----------------------
+# OS / Editor
+# -----------------------
+# macOS
+.DS_Store
+
+# Windows thumbnail cache, Recycle Bin
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# JetBrains
+.idea/
+*.iml
+
+# -----------------------
+# Node / frontend
+# -----------------------
+/frontend/node_modules/
+/frontend/dist/
+/frontend/build/
+/frontend/.turbo/
+/frontend/.parcel-cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.vite/
+
+# environment files (do not version secrets)
+.env
+.env.local
+.env.*.local
+.env.test
+.env.production.local
+
+# test coverage
+/coverage
+/coverage-report
+
+# lockfiles: keep them versioned (recommended), so not ignored
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# -----------------------
+# .NET / backend
+# -----------------------
+/backend/bin/
+/backend/obj/
+/backend/*.user
+/backend/*.suo
+/backend/*.userosscache
+/backend/*.vspscc
+/backend/.vs/
+
+# Rider
+.idea/
+*.sln.iml
+# Visual Studio Code workspace storage
+.vscode/
+
+# Rider caches
+/.idea/
+
+# dotnet publish output
+publish/
+
+# NuGet
+*.nupkg
+# The packages folder can be ignored because of PackageReference
+packages/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+
+# Logs
+*.log
+
+# -----------------------
+# Misc / tooling
+# -----------------------
+/.vs/
+.DS_Store
+.cache/
+tmp/
+temp/
+
+# local npm binaries
+node_modules/
+
+# OS generated files
+Thumbs.db
+desktop.ini
+
+# End of file
