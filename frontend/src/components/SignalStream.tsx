@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+// frontend/src/components/SignalStream.tsx
+import { useEffect, useState } from "react";
 import * as signalR from "@microsoft/signalr";
 
-type Msg = { id: number; text: string };
+type Msg = { id: string; text?: string };
 
 export default function SignalStream() {
   const [messages, setMessages] = useState<Msg[]>([]);
@@ -9,12 +10,17 @@ export default function SignalStream() {
 
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl("/hub/stream") // thanks to vite proxy this becomes http://localhost:5000/hub/stream
+      .withUrl("/hub/stream")
       .withAutomaticReconnect()
       .build();
 
-    connection.on("ReceiveMessage", (msg: Msg) => {
-      setMessages((prev) => [msg, ...prev].slice(0, 50));
+    connection.on("ReceiveMessage", (msg: any) => {
+      // normalize message shape
+      const m: Msg = {
+        id: msg?.id ?? msg ?? String(Date.now()),
+        text: msg?.text ?? (typeof msg === "string" ? msg : undefined),
+      };
+      setMessages((prev) => [m, ...prev].slice(0, 200)); // keep recent 200
     });
 
     connection
@@ -32,30 +38,38 @@ export default function SignalStream() {
 
   return (
     <div>
-      <div style={{ marginBottom: 8 }}>
-        <strong>SignalR status:</strong>{" "}
-        {connected ? "connected" : "disconnected"}
-      </div>
       <div
         style={{
-          maxHeight: 300,
-          overflow: "auto",
-          border: "1px solid #ddd",
-          padding: 8,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 8,
         }}
       >
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          <small style={{ color: "#999" }}>Status:</small>
+          <strong style={{ color: connected ? "#6fe3a1" : "#f08b8b" }}>
+            {connected ? "connected" : "disconnected"}
+          </strong>
+        </div>
+        <small style={{ color: "#bbb" }}>Showing most recent messages</small>
+      </div>
+
+      <div className="stream-box">
+        {messages.length === 0 && (
+          <div className="muted">
+            No messages yet — waiting for server events...
+          </div>
+        )}
+
         {messages.map((m) => (
-          <div
-            key={m.id}
-            style={{ padding: "6px 0", borderBottom: "1px solid #f2f2f2" }}
-          >
-            <small style={{ color: "#666" }}>#{m.id}</small>{" "}
-            <span>{m.text}</span>
+          <div className="stream-row" key={m.id}>
+            <div className="stream-id">#{m.id.slice(0, 8)}</div>
+            <div className="stream-text">
+              {m.text ?? <em style={{ color: "#888" }}>[no content]</em>}
+            </div>
           </div>
         ))}
-        {messages.length === 0 && (
-          <div style={{ color: "#888" }}>No messages yet.</div>
-        )}
       </div>
     </div>
   );
