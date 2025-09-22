@@ -33,7 +33,6 @@ Intègre des APIs publiques (EUR→USD, CoinGecko, RestCountries) et expose des 
 - .NET 8 SDK installé (`dotnet --list-sdks` doit mentionner `8.x`)
 - Node 18+ (`node -v`)
 - npm (`npm -v`)
-- Git (optionnel : `gh` CLI si tu veux créer le repo depuis la CLI)
 
 ### 1. Cloner & installer
 
@@ -66,7 +65,7 @@ npm run dev
 
 Ouvre ensuite : http://localhost:5173
 
-Remarque : le frontend utilise une configuration de proxy Vite pour rediriger /api et /hub vers http://localhost:5000 (websocket ws activé). Assure-toi que le backend tourne avant d'ouvrir le front pour que SignalR se connecte correctement.
+Remarque : le frontend utilise une configuration de proxy Vite pour rediriger /api et /hub vers http://localhost:5000 (websocket ws activé).
 
 ### Commandes utiles
 
